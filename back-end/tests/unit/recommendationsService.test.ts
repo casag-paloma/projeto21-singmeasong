@@ -80,7 +80,6 @@ describe('Unit tests of recommendation Service', ()=>{
         expect(recommendationRepository.find).toBeCalled();
         expect(recommendationRepository.updateScore).toBeCalled();
     } ),
-
     it('must NOT upvote a recommendation, if the recommendation does not exist',async () => {
 
         const id = 1;
@@ -98,6 +97,7 @@ describe('Unit tests of recommendation Service', ()=>{
       
     } ),
    
+
     it('must downvote a recommendation, with a score > -5',async () => {
 
         const id = 1;
@@ -187,6 +187,8 @@ describe('Unit tests of recommendation Service', ()=>{
 
         expect(recommendationRepository.findAll).toBeCalled();
     }),
+
+
     it('must get a recommendation by its id',async () => {
 
         const id = 1;
@@ -203,7 +205,20 @@ describe('Unit tests of recommendation Service', ()=>{
 
         expect(recommendationRepository.find).toBeCalled();
     }),
+    it('must NOT get a recommendation by its id, if the recommendation does not exist',async () => {
+
+        const id = 1;
+        
+        jest
+        .spyOn(recommendationRepository, 'find')
+        .mockImplementationOnce(():any=>{ })
+
+        const promise = recommendationService.getById(id);
+
+        expect(promise).rejects.toEqual( {type: "not_found", message: "" });
+    }),
     
+
     it('must get a random recommendation with 70% chance of a +10 rate song or a 30% chance of a -5 to 10 rate song, if there are both +10 rate and -5 to 10 rate songs',async () => {
 
         const recommendation = [{ 
