@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "prisma-test": "dotenv -e .env.test prisma migrate reset ",
-    "test:integration": "npm run prisma-test &&  dotenv -e .env.test jest --no-cache --testPathPattern=tests/integration ",
+    "test:integration": "dotenv -e .env.test jest --no-cache --testPathPattern=tests/integration ",
     "test:unit": " dotenv -e .env.test jest -- -i --coverage --testPathPattern=tests/unit",
     "dev": "nodemon src/server.ts"
   },
