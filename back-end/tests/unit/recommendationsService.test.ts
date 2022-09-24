@@ -86,7 +86,63 @@ describe('Unit tests of recommendation Service', ()=>{
         expect(recommendationRepository.find).toBeCalled();
         expect(recommendationRepository.updateScore).toBeCalled();
     } ),
-    it.todo('downvote'),
+    it('must downvote a recommendation, with a score > -5',async () => {
+
+        const id = 1;
+        
+        jest
+        .spyOn(recommendationRepository, 'find')
+        .mockImplementationOnce(():any =>{
+            return{
+                id:1
+            };
+        });
+        
+        jest
+        .spyOn(recommendationRepository, 'updateScore')
+        .mockImplementationOnce(():any =>{
+            return{
+                score:0
+            }
+        });
+
+        await recommendationService.downvote(id);
+
+        expect(recommendationRepository.find).toBeCalled();
+        expect(recommendationRepository.updateScore).toBeCalled();
+    } ),
+    it('must downvote a recommendation, with a score <= -5',async () => {
+
+        const id = 1;
+        
+        jest
+        .spyOn(recommendationRepository, 'find')
+        .mockImplementationOnce(():any =>{
+            return{
+                id:1
+            };
+        });
+        
+        jest
+        .spyOn(recommendationRepository, 'updateScore')
+        .mockImplementationOnce(():any =>{
+            return{
+                score:-6
+            }
+        });
+
+        jest
+        .spyOn(recommendationRepository, 'remove')
+        .mockImplementationOnce(():any =>{ });
+        
+        await recommendationService.downvote(id);
+
+        expect(recommendationRepository.find).toBeCalled();
+        expect(recommendationRepository.updateScore).toBeCalled();
+        expect(recommendationRepository.remove).toBeCalled();
+    } ),
+
+
     it.todo('getRandom'),
     it.todo('get'),
     it.todo('getById'),
