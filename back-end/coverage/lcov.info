@@ -65,7 +65,7 @@ FNH:5
 FNDA:1,insert
 FNDA:1,upvote
 FNDA:2,downvote
-FNDA:3,getByIdOrFail
+FNDA:4,getByIdOrFail
 FNDA:1,get
 FNDA:0,getTop
 FNDA:0,getRandom
@@ -84,9 +84,9 @@ DA:25,2
 DA:27,2
 DA:32,2
 DA:33,1
-DA:38,3
-DA:39,3
-DA:41,3
+DA:38,4
+DA:39,4
+DA:41,4
 DA:45,1
 DA:49,0
 DA:53,0

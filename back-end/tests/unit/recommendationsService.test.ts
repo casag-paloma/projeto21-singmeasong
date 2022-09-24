@@ -152,6 +152,23 @@ describe('Unit tests of recommendation Service', ()=>{
 
         expect(recommendationRepository.findAll).toBeCalled();
     }),
+    it('must get a recommendation by its id',async () => {
+
+        const id = 1;
+        
+        jest
+        .spyOn(recommendationRepository, 'find')
+        .mockImplementationOnce(():any=>{
+            return{
+                id:1
+            }
+        })
+
+        await recommendationService.getById(id);
+
+        expect(recommendationRepository.find).toBeCalled();
+    }),
+
     it.todo('getById'),
     it.todo('getRandom'),
     it.todo('getTop')
