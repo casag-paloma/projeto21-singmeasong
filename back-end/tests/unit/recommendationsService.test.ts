@@ -237,7 +237,6 @@ describe('Unit tests of recommendation Service', ()=>{
 
         expect(recommendationRepository.findAll).toBeCalled();
     }),
-
     it('must get a random recommendation if there is only +10 rate songs OR  only -5 to 10 rate songs ',async () => {
 
         const recommendation1 = []
@@ -264,7 +263,26 @@ describe('Unit tests of recommendation Service', ()=>{
         expect(recommendationRepository.findAll).toBeCalledTimes(2);
     }),
     
-    it.todo('getRandom, fail case'),
+    it('getRandom, fail case',async () => {
+        
+        const recommendation = [];
+
+        jest
+        .spyOn(recommendationRepository, 'findAll')
+        .mockImplementation(():any =>{
+            return recommendation  
+        })
+
+        //jest
+        //.spyOn(recommendationRepository, 'findAll')
+        //.mockImplementationOnce(():any =>{
+        //    return recommendation  })
+    //
+        const promise = recommendationService.getRandom();
+
+        expect(promise).rejects.toEqual( {type: "not_found", message: "" });
+
+    }),
 
     it('must get top recommendations',async () => {
 
