@@ -142,7 +142,7 @@ describe('Unit tests of recommendation Service', ()=>{
         expect(recommendationRepository.remove).toBeCalled();
     } ),
 
-    it('must get a list of the last 10 songs',async () => {
+    it('must get recommendations',async () => {
         
         jest
         .spyOn(recommendationRepository, 'findAll')
@@ -168,9 +168,33 @@ describe('Unit tests of recommendation Service', ()=>{
 
         expect(recommendationRepository.find).toBeCalled();
     }),
+    
+    it.todo('getRandom, sucess case1',async () => {
+        
+        jest
+        .spyOn(recommendationRepository, 'findAll')
+        .mockImplementationOnce(():any =>{})
 
-    it.todo('getById'),
-    it.todo('getRandom'),
-    it.todo('getTop')
+        await recommendationService.getRandom();
+
+        expect(recommendationRepository.findAll).toBeCalled();
+
+
+
+    }),
+    it.todo('getRandom, fail case'),
+
+    it('must get top recommendations',async () => {
+
+        const amount = 1;
+
+        jest
+        .spyOn(recommendationRepository, 'getAmountByScore')
+        .mockImplementationOnce(():any => {})
+        
+        await recommendationService.getTop(amount);
+
+        expect(recommendationRepository.getAmountByScore).toBeCalled();
+    })
 })
 
