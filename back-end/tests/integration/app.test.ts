@@ -120,6 +120,7 @@ describe('Tests with recommendations', ()=>{
         expect(result.body).toBeInstanceOf(Array)
     });
 
+
     it('tests with GET /recommendations/:id, return a recommendation on the db',async () => {
         
         const newRecommendation = recommendationFactory();
@@ -151,12 +152,19 @@ describe('Tests with recommendations', ()=>{
     });
 
 
-
     it.todo('tests with GET /random, return a random recommendation ');
     it.todo('tests with GET /random, try to return an inexistent random recommendation');
 
 
-    it.todo('tests with GET /top/:amount, return a list of the top (amount) of recommendations');
+    it('tests with GET /top/:amount, return a list of the top (amount) of recommendations',async () => {
+        
+        const amount =  faker.finance.amount(0,1000,0);
+
+        const result = await server.get(`/recommendations/top/${+amount}`);
+
+        expect(result.status).toBe(200);
+        expect(result.body).toBeInstanceOf(Array)
+    });
 })
 
 
