@@ -33,38 +33,32 @@ describe('Unit tests of recommendation Service', ()=>{
 
 
     }),
-    //dando erro -> verficar o retorno
-    it('must NOT create a duplicated recommendation',async () => {
-        
+    it('must NOT create a duplicated recommendation', async () => {
         const recommendation ={
             name: "Falamansa - Xote dos Milagres",
             youtubeLink: "https://www.youtube.com/watch?v=chwyjJbcs1Y"
         }
-
+    
         jest
-        .spyOn(recommendationRepository, 'findByName')
-        .mockImplementationOnce((): any =>{
-            return{
-                id: 1,
+          .spyOn(recommendationRepository, 'findByName')
+          .mockImplementationOnce((): any => {
+            return {
                 name: "Falamansa - Xote dos Milagres",
-                youtubeLink: "https://www.youtube.com/watch?v=chwyjJbcs1Y",
-                score: 0 
-            }
-           });
-
-
-//           const promise = await recommendationService.insert(recommendation);
-
-        console.log('')
-
-        //expect(promise).rejects.toEqual({
-        //    type: "conflict",
-        //     message:"Recommendations names must be unique"
-        //});
+                youtubeLink: "https://www.youtube.com/watch?v=chwyjJbcs1Y"
+            };
+          });
+    
+        const promise = recommendationService.insert(recommendation);
+    
+        expect(promise).rejects.toEqual({
+          type: 'conflict',
+          message: 'Recommendations names must be unique'
+        });
+    
         expect(recommendationRepository.create).not.toBeCalled();
-
-    }),
-
+      });
+    
+    
     it('must upvote a recommendation',async () => {
 
         const id = 1;
