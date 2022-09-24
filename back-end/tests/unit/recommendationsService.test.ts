@@ -219,7 +219,7 @@ describe('Unit tests of recommendation Service', ()=>{
     }),
     
 
-    it('must get a random recommendation with 70% chance of a +10 rate song or a 30% chance of a -5 to 10 rate song, if there are both +10 rate and -5 to 10 rate songs',async () => {
+    it('must get a random recommendation if there was select a +10 or -5 to 10 rate song and they exist on the database ',async () => {
 
         const recommendation = [{ 
             id: 1,
@@ -237,7 +237,7 @@ describe('Unit tests of recommendation Service', ()=>{
 
         expect(recommendationRepository.findAll).toBeCalled();
     }),
-    it('must get a random recommendation if there is only +10 rate songs OR  only -5 to 10 rate songs ',async () => {
+    it('must get a random recommendation there was select a +10 or -5 to 10 rate song and they dont exist on the database ',async () => {
 
         const recommendation1 = []
         const recommendation = [{ 
@@ -263,7 +263,7 @@ describe('Unit tests of recommendation Service', ()=>{
         expect(recommendationRepository.findAll).toBeCalledTimes(2);
     }),
     
-    it('getRandom, fail case',async () => {
+    it('must NOT get random recommendation, if the recommendation does not exist ',async () => {
         
         const recommendation = [];
 
@@ -273,16 +273,12 @@ describe('Unit tests of recommendation Service', ()=>{
             return recommendation  
         })
 
-        //jest
-        //.spyOn(recommendationRepository, 'findAll')
-        //.mockImplementationOnce(():any =>{
-        //    return recommendation  })
-    //
         const promise = recommendationService.getRandom();
 
         expect(promise).rejects.toEqual( {type: "not_found", message: "" });
 
     }),
+
 
     it('must get top recommendations',async () => {
 
