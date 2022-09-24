@@ -81,7 +81,7 @@ describe('Unit tests of recommendation Service', ()=>{
         expect(recommendationRepository.updateScore).toBeCalled();
     } ),
 
-    it('must NOT upvote a recommendation',async () => {
+    it('must NOT upvote a recommendation, if the recommendation does not exist',async () => {
 
         const id = 1;
         
@@ -118,10 +118,16 @@ describe('Unit tests of recommendation Service', ()=>{
             }
         });
 
+        jest
+        .spyOn(recommendationRepository, 'remove')
+        .mockImplementationOnce(():any =>{});
+
         await recommendationService.downvote(id);
 
         expect(recommendationRepository.find).toBeCalled();
         expect(recommendationRepository.updateScore).toBeCalled();
+        expect(recommendationRepository.remove).not.toBeCalled();
+
     } ),
     it('must downvote a recommendation, with a score <= -5',async () => {
 
@@ -153,6 +159,23 @@ describe('Unit tests of recommendation Service', ()=>{
         expect(recommendationRepository.updateScore).toBeCalled();
         expect(recommendationRepository.remove).toBeCalled();
     } ),
+    it('must NOT downvote a recommendation, if the recommendation does not exist',async () => {
+
+        const id = 1;
+        
+        jest
+        .spyOn(recommendationRepository, 'find')
+        .mockImplementationOnce(():any =>{});
+        
+        const promise = recommendationService.upvote(id);
+
+        expect(promise).rejects.toEqual( {type: "not_found", message: "" });
+      
+        expect(recommendationRepository.updateScore).not.toBeCalled();
+        
+      
+    } ),
+   
 
     it('must get recommendations',async () => {
         
