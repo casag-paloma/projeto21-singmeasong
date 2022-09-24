@@ -142,10 +142,18 @@ describe('Unit tests of recommendation Service', ()=>{
         expect(recommendationRepository.remove).toBeCalled();
     } ),
 
+    it('must get a list of the last 10 songs',async () => {
+        
+        jest
+        .spyOn(recommendationRepository, 'findAll')
+        .mockImplementationOnce(():any=>{})
 
-    it.todo('getRandom'),
-    it.todo('get'),
+        await recommendationService.get();
+
+        expect(recommendationRepository.findAll).toBeCalled();
+    }),
     it.todo('getById'),
+    it.todo('getRandom'),
     it.todo('getTop')
 })
 
