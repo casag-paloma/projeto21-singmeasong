@@ -3,7 +3,7 @@ import { Recommendation } from '@prisma/client';
 
 import { recommendationRepository } from '../../src/repositories/recommendationRepository';
 import { recommendationService } from '../../src/services/recommendationsService';
-import {conflictError} from '../../src/utils/errorUtils'
+import {conflictError, notFoundError} from '../../src/utils/errorUtils'
 
 beforeEach(()=>{
     jest.resetAllMocks();
@@ -80,6 +80,24 @@ describe('Unit tests of recommendation Service', ()=>{
         expect(recommendationRepository.find).toBeCalled();
         expect(recommendationRepository.updateScore).toBeCalled();
     } ),
+
+    it('must NOT upvote a recommendation',async () => {
+
+        const id = 1;
+        
+        jest
+        .spyOn(recommendationRepository, 'find')
+        .mockImplementationOnce(():any =>{});
+        
+        const promise = recommendationService.upvote(id);
+
+        expect(promise).rejects.toEqual( {type: "not_found", message: "" });
+      
+        expect(recommendationRepository.updateScore).not.toBeCalled();
+        
+      
+    } ),
+   
     it('must downvote a recommendation, with a score > -5',async () => {
 
         const id = 1;

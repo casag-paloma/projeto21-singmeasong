@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1664031759712" clover="3.2.0">
-  <project timestamp="1664031759713" name="All files">
-    <metrics statements="65" coveredstatements="43" conditionals="27" coveredconditionals="7" methods="23" coveredmethods="10" elements="115" coveredelements="60" complexity="0" loc="65" ncloc="65" packages="4" files="4" classes="4"/>
+<coverage generated="1664035367657" clover="3.2.0">
+  <project timestamp="1664035367657" name="All files">
+    <metrics statements="65" coveredstatements="45" conditionals="27" coveredconditionals="11" methods="23" coveredmethods="11" elements="115" coveredelements="67" complexity="0" loc="65" ncloc="65" packages="4" files="4" classes="4"/>
     <package name="src">
       <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="database.ts" path="/home/paloma/Área de Trabalho/Módulo 5 - Arquitetura/projeto21-singmeasong/back-end/src/database.ts">
@@ -31,23 +31,23 @@
       </file>
     </package>
     <package name="src.services">
-      <metrics statements="33" coveredstatements="31" conditionals="6" coveredconditionals="4" methods="9" coveredmethods="9"/>
+      <metrics statements="33" coveredstatements="32" conditionals="6" coveredconditionals="5" methods="9" coveredmethods="9"/>
       <file name="recommendationsService.ts" path="/home/paloma/Área de Trabalho/Módulo 5 - Arquitetura/projeto21-singmeasong/back-end/src/services/recommendationsService.ts">
-        <metrics statements="33" coveredstatements="31" conditionals="6" coveredconditionals="4" methods="9" coveredmethods="9"/>
+        <metrics statements="33" coveredstatements="32" conditionals="6" coveredconditionals="5" methods="9" coveredmethods="9"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="8" count="2" type="stmt"/>
         <line num="11" count="2" type="cond" truecount="1" falsecount="0"/>
         <line num="12" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
-        <line num="18" count="1" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
         <line num="20" count="1" type="stmt"/>
         <line num="24" count="2" type="stmt"/>
         <line num="26" count="2" type="stmt"/>
         <line num="31" count="2" type="cond" truecount="1" falsecount="0"/>
         <line num="32" count="1" type="stmt"/>
-        <line num="37" count="4" type="stmt"/>
-        <line num="38" count="4" type="cond" truecount="0" falsecount="1"/>
+        <line num="37" count="5" type="stmt"/>
+        <line num="38" count="5" type="cond" truecount="1" falsecount="0"/>
         <line num="40" count="4" type="stmt"/>
         <line num="44" count="1" type="stmt"/>
         <line num="48" count="1" type="stmt"/>
@@ -64,15 +64,15 @@
         <line num="72" count="1" type="stmt"/>
         <line num="75" count="1" type="stmt"/>
         <line num="79" count="2" type="cond" truecount="1" falsecount="0"/>
-        <line num="80" count="2" type="stmt"/>
-        <line num="83" count="0" type="stmt"/>
+        <line num="80" count="1" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
         <line num="86" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.utils">
-      <metrics statements="16" coveredstatements="7" conditionals="20" coveredconditionals="3" methods="6" coveredmethods="1"/>
+      <metrics statements="16" coveredstatements="8" conditionals="20" coveredconditionals="6" methods="6" coveredmethods="2"/>
       <file name="errorUtils.ts" path="/home/paloma/Área de Trabalho/Módulo 5 - Arquitetura/projeto21-singmeasong/back-end/src/utils/errorUtils.ts">
-        <metrics statements="16" coveredstatements="7" conditionals="20" coveredconditionals="3" methods="6" coveredmethods="1"/>
+        <metrics statements="16" coveredstatements="8" conditionals="20" coveredconditionals="6" methods="6" coveredmethods="2"/>
         <line num="7" count="1" type="stmt"/>
         <line num="8" count="0" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
@@ -84,7 +84,7 @@
         <line num="19" count="1" type="stmt"/>
         <line num="20" count="1" type="cond" truecount="3" falsecount="1"/>
         <line num="23" count="1" type="stmt"/>
-        <line num="24" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="24" count="1" type="cond" truecount="3" falsecount="1"/>
         <line num="27" count="1" type="stmt"/>
         <line num="28" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="31" count="1" type="stmt"/>
