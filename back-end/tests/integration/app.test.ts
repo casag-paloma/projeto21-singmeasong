@@ -4,6 +4,7 @@ import { deleteAllData } from "./factories/scenarioFactory";
 import recommendationFactory from "./factories/recommendationFactory";
 import { prisma } from "../../src/database";
 import { Recommendation } from "@prisma/client";
+import { faker } from "@faker-js/faker";
 
 const server = supertest(app);
 
@@ -57,7 +58,20 @@ describe('Tests with recommendations', ()=>{
 
 
     });
-    it.todo('tests with POST /recommendations/:id/upvote, try to creates a upvote to an inexistent recommendation ');
+    it('tests with POST /recommendations/:id/upvote, try to creates a upvote to an inexistent recommendation ',async () => {
+        
+        const id =  faker.finance.amount(0,1000,0);
+
+        const result = await server.post(`/recommendations/${+id}/upvote`);
+
+        const uptadedRecommendation = await prisma.recommendation.findFirst({
+            where:{ id: +id }
+        });
+
+        expect(result.status).toBe(404);
+        expect(uptadedRecommendation).toBeNull();
+
+    });
 
     it.todo('tests with POST /recommendations/:id/downvote, creates a downvote to that recommendation with sucess');
     it.todo('tests with POST /recommendations/:id/downvote, try to creates a downvote to an inexistent recommendation ');
