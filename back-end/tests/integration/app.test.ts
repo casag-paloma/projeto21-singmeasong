@@ -1,6 +1,6 @@
 import supertest from "supertest";
 import app from "../../src/app";
-import { deleteAllData } from "./factories/scenarioFactory";
+import { deleteAllData, disconnectPrisma } from "./factories/scenarioFactory";
 import recommendationFactory from "./factories/recommendationFactory";
 import { prisma } from "../../src/database";
 import { Recommendation } from "@prisma/client";
@@ -37,6 +37,7 @@ describe('Tests with recommendations', ()=>{
         
     });
     
+
     it('tests with POST /recommendations/:id/upvote, creates a upvote to that recommendation with sucess',async () => {
         const newRecommendation = recommendationFactory();
 
@@ -72,6 +73,7 @@ describe('Tests with recommendations', ()=>{
         expect(uptadedRecommendation).toBeNull();
 
     });
+
 
     it('tests with POST /recommendations/:id/downvote, creates a downvote to that recommendation with sucess',async () => {
         const newRecommendation = recommendationFactory();
@@ -109,9 +111,31 @@ describe('Tests with recommendations', ()=>{
 
     });
 
-    it.todo('tests with GET /recommendations, return a list of all recommendations on the db');
 
-    it.todo('tests with GET /recommendations/:id, return a recommendation on the db');
+    it('tests with GET /recommendations, return a list of all recommendations on the db',async () => {
+        
+        const result = await server.get('/recommendations');
+
+        expect(result.status).toBe(200);
+        expect(result.body).toBeInstanceOf(Array)
+    });
+
+    it('tests with GET /recommendations/:id, return a recommendation on the db',async () => {
+        
+        const newRecommendation = recommendationFactory();
+
+        await server.post('/recommendations').send(newRecommendation);
+        
+        const createdRecommendation: Recommendation = await prisma.recommendation.findFirst({
+            where:{ name: newRecommendation.name}
+        });
+        
+        const id = createdRecommendation.id;
+        const result = await server.post(`/recommendations/${+id}`);
+
+        expect(result.status).toBe(200);
+        expect(result.body).toEqual(createdRecommendation);
+    });
     it.todo('tests with GET /recommendations/:id, try to return an inexistent recommendation');
 
 
@@ -121,4 +145,9 @@ describe('Tests with recommendations', ()=>{
 
 
     it.todo('tests with GET /top/:amount, return a list of the top (amount) of recommendations');
+})
+
+
+afterAll(async () => {
+    await disconnectPrisma();
 })
