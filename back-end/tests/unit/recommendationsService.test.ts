@@ -33,6 +33,7 @@ describe('Unit tests of recommendation Service', ()=>{
 
 
     }),
+    //dando erro -> verficar o retorno
     it('must NOT create a duplicated recommendation',async () => {
         
         const recommendation ={
@@ -64,7 +65,27 @@ describe('Unit tests of recommendation Service', ()=>{
 
     }),
 
-    it.todo('upvote'),
+    it('must upvote a recommendation',async () => {
+
+        const id = 1;
+        
+        jest
+        .spyOn(recommendationRepository, 'find')
+        .mockImplementationOnce(():any =>{
+            return{
+                id:1
+            };
+        });
+        
+        jest
+        .spyOn(recommendationRepository, 'updateScore')
+        .mockImplementationOnce(():any =>{});
+
+        await recommendationService.upvote(id);
+
+        expect(recommendationRepository.find).toBeCalled();
+        expect(recommendationRepository.updateScore).toBeCalled();
+    } ),
     it.todo('downvote'),
     it.todo('getRandom'),
     it.todo('get'),
