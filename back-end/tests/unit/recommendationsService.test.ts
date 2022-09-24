@@ -262,7 +262,6 @@ describe('Unit tests of recommendation Service', ()=>{
 
         expect(recommendationRepository.findAll).toBeCalledTimes(2);
     }),
-    
     it('must NOT get random recommendation, if the recommendation does not exist ',async () => {
         
         const recommendation = [];
