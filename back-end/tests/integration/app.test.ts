@@ -131,12 +131,24 @@ describe('Tests with recommendations', ()=>{
         });
         
         const id = createdRecommendation.id;
-        const result = await server.post(`/recommendations/${+id}`);
+        const result = await server.get(`/recommendations/${+id}`);
 
         expect(result.status).toBe(200);
         expect(result.body).toEqual(createdRecommendation);
     });
-    it.todo('tests with GET /recommendations/:id, try to return an inexistent recommendation');
+    it('tests with GET /recommendations/:id, try to return an inexistent recommendation',async () => {
+        
+        const id =  faker.finance.amount(0,1000,0);
+
+        const result = await server.get(`/recommendations/${+id}`);
+
+        const uptadedRecommendation = await prisma.recommendation.findFirst({
+            where:{ id: +id }
+        });
+
+        expect(result.status).toBe(404);
+        expect(uptadedRecommendation).toBeNull();
+    });
 
 
 
