@@ -73,8 +73,41 @@ describe('Tests with recommendations', ()=>{
 
     });
 
-    it.todo('tests with POST /recommendations/:id/downvote, creates a downvote to that recommendation with sucess');
-    it.todo('tests with POST /recommendations/:id/downvote, try to creates a downvote to an inexistent recommendation ');
+    it('tests with POST /recommendations/:id/downvote, creates a downvote to that recommendation with sucess',async () => {
+        const newRecommendation = recommendationFactory();
+
+        await server.post('/recommendations').send(newRecommendation);
+        
+        const createdRecommendation: Recommendation = await prisma.recommendation.findFirst({
+            where:{ name: newRecommendation.name}
+        });
+        
+        const id = createdRecommendation.id;
+        const result = await server.post(`/recommendations/${+id}/downvote`);
+
+        const uptadedRecommendation = await prisma.recommendation.findFirst({
+            where:{ name: newRecommendation.name}
+        });
+
+        expect(result.status).toBe(200);
+        expect(uptadedRecommendation.score).toEqual(createdRecommendation.score -1);
+
+
+    });
+    it('tests with POST /recommendations/:id/downvote, try to creates a downvote to an inexistent recommendation ',async () => {
+        
+        const id =  faker.finance.amount(0,1000,0);
+
+        const result = await server.post(`/recommendations/${+id}/downvote`);
+
+        const uptadedRecommendation = await prisma.recommendation.findFirst({
+            where:{ id: +id }
+        });
+
+        expect(result.status).toBe(404);
+        expect(uptadedRecommendation).toBeNull();
+
+    });
 
     it.todo('tests with GET /recommendations, return a list of all recommendations on the db');
 
