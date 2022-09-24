@@ -169,25 +169,57 @@ describe('Unit tests of recommendation Service', ()=>{
         expect(recommendationRepository.find).toBeCalled();
     }),
     
-    it.todo('getRandom, sucess case1',async () => {
-        
+    it('must get a random recommendation with 70% chance of a +10 rate song or a 30% chance of a -5 to 10 rate song, if there are both +10 rate and -5 to 10 rate songs',async () => {
+
+        const recommendation = [{ 
+            id: 1,
+            name: "Falamansa - Xote dos Milagres",
+            youtubeLink: "https://www.youtube.com/watch?v=chwyjJbcs1Y",
+            score: 0 
+        }]
+
         jest
         .spyOn(recommendationRepository, 'findAll')
-        .mockImplementationOnce(():any =>{})
+        .mockImplementationOnce(():any =>{
+            return recommendation  })
 
         await recommendationService.getRandom();
 
         expect(recommendationRepository.findAll).toBeCalled();
-
-
-
     }),
+
+    it('must get a random recommendation if there is only +10 rate songs OR  only -5 to 10 rate songs ',async () => {
+
+        const recommendation1 = []
+        const recommendation = [{ 
+            id: 1,
+            name: "Falamansa - Xote dos Milagres",
+            youtubeLink: "https://www.youtube.com/watch?v=chwyjJbcs1Y",
+            score: 0 
+        }]
+
+
+        jest
+        .spyOn(recommendationRepository, 'findAll')
+        .mockImplementationOnce(():any =>{
+            return recommendation1  })
+
+        jest
+        .spyOn(recommendationRepository, 'findAll')
+        .mockImplementationOnce(():any =>{
+            return recommendation  })
+    
+        await recommendationService.getRandom();
+
+        expect(recommendationRepository.findAll).toBeCalledTimes(2);
+    }),
+    
     it.todo('getRandom, fail case'),
 
     it('must get top recommendations',async () => {
 
         const amount = 1;
-
+        
         jest
         .spyOn(recommendationRepository, 'getAmountByScore')
         .mockImplementationOnce(():any => {})
