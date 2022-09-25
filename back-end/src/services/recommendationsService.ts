@@ -66,7 +66,6 @@ async function getByScore(scoreFilter: "gt" | "lte") {
     score: 10,
     scoreFilter,
   });
-  console.log(recommendations, recommendations.length);
 
   if (recommendations.length > 0) {
     return recommendations;

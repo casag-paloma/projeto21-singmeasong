@@ -152,8 +152,27 @@ describe('Tests with recommendations', ()=>{
     });
 
 
-    it.todo('tests with GET /random, return a random recommendation ');
-    it.todo('tests with GET /random, try to return an inexistent random recommendation');
+    it('tests with GET /random, return a random recommendation ',async () => {
+        const newRecommendation = recommendationFactory();
+
+        await server.post('/recommendations').send(newRecommendation);
+        
+       
+        const result = await server.get('/recommendations/random');
+
+        expect(result.status).toBe(200);
+        expect(result.body).toBeInstanceOf(Object)
+    });
+   
+    it('tests with GET /random, try to return an inexistent random recommendation',async () => {
+        
+        deleteAllData();
+
+        const result = await server.get('/recommendations/random');
+
+        expect(result.status).toBe(404);
+
+    });
 
 
     it('tests with GET /top/:amount, return a list of the top (amount) of recommendations',async () => {
