@@ -71,7 +71,7 @@ async function getByScore(scoreFilter: "gt" | "lte") {
     return recommendations;
   }
 
-  return recommendationRepository.findAll();
+  return await recommendationRepository.findAll();
 }
 
 function getScoreFilter(random: number) {
